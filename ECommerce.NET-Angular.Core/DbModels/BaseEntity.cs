@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ECommerce.NET_Angular.Core.DbModels
 {
-    internal class BaseEntity
+    public class BaseEntity
     {
+        public int Id { get; set; }
     }
 }

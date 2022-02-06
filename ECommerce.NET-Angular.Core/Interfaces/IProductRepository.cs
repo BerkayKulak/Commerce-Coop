@@ -20,5 +20,8 @@ namespace ECommerce.NET_Angular.Core.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         Task<IReadOnlyList<Product>> GetProductAsync();
+
+        Task<IReadOnlyList<ProductType>> GetProductTypesAsync();
+        Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync();
     }
 }
