@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.NET-Angular.API", "ECommerce.NET-Angular.API\ECommerce.NET-Angular.API.csproj", "{40A65F51-7C1A-4EF5-8525-AAB39ADF292B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.NET-Angular.Infrastructure", "ECommerce.NET-Angular.Infrastructure\ECommerce.NET-Angular.Infrastructure.csproj", "{34718380-7F0D-467B-B41E-6D91DA37DBFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.NET-Angular.Core", "ECommerce.NET-Angular.Core\ECommerce.NET-Angular.Core.csproj", "{04467D7B-E535-46EC-A5BA-7EA7C17F8B6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40A65F51-7C1A-4EF5-8525-AAB39ADF292B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40A65F51-7C1A-4EF5-8525-AAB39ADF292B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40A65F51-7C1A-4EF5-8525-AAB39ADF292B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40A65F51-7C1A-4EF5-8525-AAB39ADF292B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34718380-7F0D-467B-B41E-6D91DA37DBFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34718380-7F0D-467B-B41E-6D91DA37DBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34718380-7F0D-467B-B41E-6D91DA37DBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34718380-7F0D-467B-B41E-6D91DA37DBFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04467D7B-E535-46EC-A5BA-7EA7C17F8B6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04467D7B-E535-46EC-A5BA-7EA7C17F8B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04467D7B-E535-46EC-A5BA-7EA7C17F8B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04467D7B-E535-46EC-A5BA-7EA7C17F8B6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69FB195A-4A11-4D77-BE8A-F2BA0E1DC01E}
+	EndGlobalSection
+EndGlobal
