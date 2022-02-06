@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ECommerce.NET_Angular.API.Helpers;
+using ECommerce.NET_Angular.API.Middleware;
 using ECommerce.NET_Angular.Core.Interfaces;
 using ECommerce.NET_Angular.Infrastructure.DataContext;
 using ECommerce.NET_Angular.Infrastructure.Implements;
@@ -48,12 +49,14 @@ namespace ECommerce.NET_Angular.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce.NET_Angular.API v1"));
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseSwagger();
+            //    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce.NET_Angular.API v1"));
+            //}
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseStatusCodePagesWithReExecute("/error/{0}");
 
