@@ -11,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerce.NET_Angular.Core.Interfaces;
 using ECommerce.NET_Angular.Infrastructure.DataContext;
+using ECommerce.NET_Angular.Infrastructure.Implements;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.NET_Angular.API
@@ -28,7 +30,7 @@ namespace ECommerce.NET_Angular.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddControllers();
             services.AddDbContext<StoreContext>(options =>
             {
