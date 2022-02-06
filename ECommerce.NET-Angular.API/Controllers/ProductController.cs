@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ECommerce.NET_Angular.Core.DbModels;
+using ECommerce.NET_Angular.Core.Interfaces;
 using ECommerce.NET_Angular.Infrastructure.DataContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,25 +13,25 @@ namespace ECommerce.NET_Angular.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly StoreContext _context;
-        public ProductsController(StoreContext context)
+        private readonly IProductRepository _productRepository;
+        public ProductsController(IProductRepository context)
         {
-            _context = context;
+            _productRepository = context;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var data = await _context.Products.ToListAsync();
-            return data;
+            var data = await _productRepository.GetProductAsync();
+            return Ok(data);
 
         }
+        
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProducts(int id)
         {
-            var data = await _context.Products.FindAsync(id);
-            return data;
+            return await _productRepository.GetProductByIdAsync(id);
 
         }
     }
