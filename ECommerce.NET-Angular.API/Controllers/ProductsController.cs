@@ -33,23 +33,25 @@ namespace ECommerce.NET_Angular.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
         {
             var spec = new ProductsWithProductTypeAndBrandsSpecification();
 
             var data = await _productRepository.ListAsync(spec);
 
             //return Ok(data);
-            return data.Select(product => new ProductToReturnDto
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                PictureUrl = product.PictureUrl,
-                Price = product.Price,
-                ProductBrand = product.ProductBrand != null ? product.ProductBrand.Name : string.Empty,
-                ProductType = product.ProductType != null ? product.ProductType.Name : string.Empty
-            }).ToList();
+            //return data.Select(product => new ProductToReturnDto
+            //{
+            //    Id = product.Id,
+            //    Name = product.Name,
+            //    Description = product.Description,
+            //    PictureUrl = product.PictureUrl,
+            //    Price = product.Price,
+            //    ProductBrand = product.ProductBrand != null ? product.ProductBrand.Name : string.Empty,
+            //    ProductType = product.ProductType != null ? product.ProductType.Name : string.Empty
+            //}).ToList();
+
+            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(data));
 
         }
         

@@ -8,7 +8,10 @@ namespace ECommerce.NET_Angular.API.Helpers
     {
         public MappingProfiles()
         {
-            CreateMap<Product, ProductToReturnDto>();
+            CreateMap<Product, ProductToReturnDto>().
+                ForMember(x=>x.ProductBrand,o=>o.MapFrom(s=>s.ProductBrand.Name))
+                .ForMember(x=>x.ProductType,o=>o.MapFrom(s=>s.ProductType.Name))
+                .ForMember(x=>x.PictureUrl, o => o.MapFrom<ProductUrlResolver>());
         }
     }
 }
