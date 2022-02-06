@@ -36,6 +36,11 @@ namespace ECommerce.NET_Angular.Infrastructure.Data
                 query = query.OrderByDescending(spec.OrderByDescending);
             }
 
+            if (spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
+
             // yoksa aggregate yapıp işlemi gerçekleştiriyorum. current = TEntity
             // curretnler içinde Includelar var mı varsa uygula ve geriye döndür
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
