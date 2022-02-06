@@ -1,23 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ECommerce.NET_Angular.Core.DbModels;
+﻿using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
+using ECommerce.NET_Angular.Infrastructure.DataContext;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ECommerce.NET_Angular.Infrastructure.Implements
 {
     public class ProductRepository:IProductRepository
     {
-        public Task<Product> GetProductByIdAsync(int id)
+        private readonly StoreContext _context;
+        public ProductRepository(StoreContext storeContext)
         {
-            throw new NotImplementedException();
+            _context = storeContext;
         }
 
-        public Task<IReadOnlyList<Product>> GetProductAsync()
+        /// <summary>
+        /// İd ye göre getirir
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Product> GetProductByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FindAsync(id);
+        }
+
+        /// <summary>
+        /// Tüm ürünleri listeler
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Product>> GetProductAsync()
+        {
+            return await _context.Products.ToListAsync();
         }
     }
 }
