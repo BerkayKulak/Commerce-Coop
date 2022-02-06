@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECommerce.NET_Angular.API.Helpers;
 using ECommerce.NET_Angular.Core.Interfaces;
 using ECommerce.NET_Angular.Infrastructure.DataContext;
 using ECommerce.NET_Angular.Infrastructure.Implements;
@@ -32,6 +33,7 @@ namespace ECommerce.NET_Angular.API
         {
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddDbContext<StoreContext>(options =>
             {

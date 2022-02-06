@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ECommerce.NET_Angular.API.Dtos;
 using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
@@ -19,12 +20,16 @@ namespace ECommerce.NET_Angular.API.Controllers
         private readonly IGenericRepository<Product> _productRepository;
         private readonly IGenericRepository<ProductBrand> _productBrandRepository;
         private readonly IGenericRepository<ProductType> _productTypeRepository;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IGenericRepository<Product> productRepository, IGenericRepository<ProductBrand> productBrandRepository, IGenericRepository<ProductType> productTypeRepository)
+        public ProductsController(IGenericRepository<Product> productRepository, 
+            IGenericRepository<ProductBrand> productBrandRepository, 
+            IGenericRepository<ProductType> productTypeRepository,IMapper mapper)
         {
             _productRepository = productRepository;
             _productBrandRepository = productBrandRepository;
             _productTypeRepository = productTypeRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -57,16 +62,8 @@ namespace ECommerce.NET_Angular.API.Controllers
             // return await _productRepository.GetEntityWithSpec(spec);
 
             var product = await _productRepository.GetEntityWithSpec(spec);
-            return new ProductToReturnDto()
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                PictureUrl = product.PictureUrl,
-                Price = product.Price,
-                ProductBrand = product.ProductBrand != null ? product.ProductBrand.Name : string.Empty,
-                ProductType = product.ProductType != null ? product.ProductType.Name : string.Empty
-            };
+
+            return _mapper.Map<Product, ProductToReturnDto>(product);
 
         }
 
