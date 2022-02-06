@@ -1,23 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ECommerce.NET_Angular.Core.DbModels;
+﻿using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
+using ECommerce.NET_Angular.Infrastructure.DataContext;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ECommerce.NET_Angular.Infrastructure.Implements
 {
     public class GenericRepository<T>:IGenericRepository<T> where T:BaseEntity
     {
-        public Task<T> GetByIdAsync(int id)
+        private readonly StoreContext _context;
+        public GenericRepository(StoreContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IReadOnlyList<T>> ListAllAsync()
         {
-            throw new NotImplementedException();
+            // Burda Include metodu kullanıp ProductBrand gibi şeyleri getiremeyiz
+            // Çünkü soyutlama işlemi gerçekleştirdik bu yüzden göremez. T olarak görür ve bu da BaseEntity olarak somuttur
+            return await _context.Set<T>().ToListAsync();
         }
     }
 }
