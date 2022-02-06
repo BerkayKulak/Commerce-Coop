@@ -23,5 +23,21 @@ namespace ECommerce.NET_Angular.Core.Specifications
         public int? TypeId { get; set; }
         public string Sort { get; set; }
 
+
+        private string _search;
+
+        public string Search
+        {
+            get
+            {
+                return _search;
+            }
+            set
+            {
+                // sırf _searchi tolower yapmak için tuttuk _searchi get tarafında sonra set ile tolower yaptık
+                 _search = value.ToLower();
+            }
+        }
+
     }
 }

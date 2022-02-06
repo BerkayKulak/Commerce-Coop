@@ -12,7 +12,10 @@ namespace ECommerce.NET_Angular.Core.Specifications
     {
         public ProductsWithProductTypeAndBrandsSpecification(ProductSpecParams productSpecParams):
             base(x=>
-                (!productSpecParams.BrandId.HasValue || x.ProductBrandId == productSpecParams.BrandId) &&
+                (string.IsNullOrWhiteSpace(productSpecParams.Search) || x.Name.ToLower().Contains(productSpecParams.Search)) 
+                &&
+                (!productSpecParams.BrandId.HasValue || x.ProductBrandId == productSpecParams.BrandId) 
+                &&
                 (!productSpecParams.TypeId.HasValue || x.ProductTypeId == productSpecParams.TypeId))
         {
             AddInclude(x=>x.ProductBrand);

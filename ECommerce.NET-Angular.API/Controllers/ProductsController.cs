@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ECommerce.NET_Angular.API.Dtos;
+using ECommerce.NET_Angular.API.Helpers;
 using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
 using ECommerce.NET_Angular.Core.Specifications;
@@ -38,13 +39,19 @@ namespace ECommerce.NET_Angular.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productSpecParams)
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productSpecParams)
         {
             var spec = new ProductsWithProductTypeAndBrandsSpecification(productSpecParams);
 
-            var data = await _productRepository.ListAsync(spec);
+            var countSpec = new ProductWithFiltersForCountSpecification(productSpecParams);
 
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(data));
+            var totalItems = await _productRepository.CountAsync(spec);
+
+            var products = await _productRepository.ListAsync(spec);
+
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+
+            return Ok(new Pagination<ProductToReturnDto>(productSpecParams.PageIndex,productSpecParams.PageSize,totalItems,data));
 
         }
         
