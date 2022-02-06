@@ -38,7 +38,9 @@ namespace ECommerce.NET_Angular.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProducts(int id)
         {
-            return await _productRepository.GetByIdAsync(id);
+            var spec = new ProductsWithProductTypeAndBrandsSpecification(id);
+
+            return await _productRepository.GetEntityWithSpec(spec);
 
         }
 
