@@ -10,10 +10,27 @@ namespace ECommerce.NET_Angular.Core.Specifications
 {
     public class ProductsWithProductTypeAndBrandsSpecification:BaseSpecification<Product>
     {
-        public ProductsWithProductTypeAndBrandsSpecification()
+        public ProductsWithProductTypeAndBrandsSpecification(string sort)
         {
             AddInclude(x=>x.ProductBrand);
             AddInclude(x=>x.ProductType);
+            //AddOrderBy(x=>x.Name);
+
+            if (!string.IsNullOrWhiteSpace(sort))
+            {
+                switch (sort)
+                {
+                    case "priceAsc":
+                        AddOrderBy(p=>p.Price);
+                        break;
+                    case "priceDesc":
+                        AddOrderByDescending(p=>p.Price);
+                        break;
+                    default:
+                        AddOrderBy(x=>x.Name);
+                        break;
+                }
+            }
         }
 
         public ProductsWithProductTypeAndBrandsSpecification(int id)
