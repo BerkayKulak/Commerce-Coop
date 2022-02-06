@@ -13,13 +13,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.NET_Angular.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+   
+    public class ProductsController : BaseApiController
     {
         private readonly IGenericRepository<Product> _productRepository;
+
         private readonly IGenericRepository<ProductBrand> _productBrandRepository;
+
         private readonly IGenericRepository<ProductType> _productTypeRepository;
+
         private readonly IMapper _mapper;
 
         public ProductsController(IGenericRepository<Product> productRepository, 
@@ -27,8 +29,11 @@ namespace ECommerce.NET_Angular.API.Controllers
             IGenericRepository<ProductType> productTypeRepository,IMapper mapper)
         {
             _productRepository = productRepository;
+
             _productBrandRepository = productBrandRepository;
+
             _productTypeRepository = productTypeRepository;
+
             _mapper = mapper;
         }
 
@@ -38,18 +43,6 @@ namespace ECommerce.NET_Angular.API.Controllers
             var spec = new ProductsWithProductTypeAndBrandsSpecification();
 
             var data = await _productRepository.ListAsync(spec);
-
-            //return Ok(data);
-            //return data.Select(product => new ProductToReturnDto
-            //{
-            //    Id = product.Id,
-            //    Name = product.Name,
-            //    Description = product.Description,
-            //    PictureUrl = product.PictureUrl,
-            //    Price = product.Price,
-            //    ProductBrand = product.ProductBrand != null ? product.ProductBrand.Name : string.Empty,
-            //    ProductType = product.ProductType != null ? product.ProductType.Name : string.Empty
-            //}).ToList();
 
             return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(data));
 
