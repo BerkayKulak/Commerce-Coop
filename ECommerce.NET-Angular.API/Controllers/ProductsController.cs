@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
+using ECommerce.NET_Angular.Core.Specifications;
 using ECommerce.NET_Angular.Infrastructure.DataContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,8 @@ namespace ECommerce.NET_Angular.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var data = await _productRepository.ListAllAsync();
+            var spec = new ProductsWithProductTypeAndBrandsSpecification();
+            var data = await _productRepository.ListAsync(spec);
             return Ok(data);
 
         }
