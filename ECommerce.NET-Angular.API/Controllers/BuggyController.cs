@@ -1,4 +1,5 @@
-﻿using ECommerce.NET_Angular.Infrastructure.DataContext;
+﻿using ECommerce.NET_Angular.API.Errors;
+using ECommerce.NET_Angular.Infrastructure.DataContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace ECommerce.NET_Angular.API.Controllers
 
             if (product == null)
             {
-                return NotFound();
+                return NotFound(new ApiResponse(404));
 
             }
             return Ok();
@@ -42,7 +43,7 @@ namespace ECommerce.NET_Angular.API.Controllers
         public ActionResult GetBadRequest()
         {
 
-            return BadRequest();
+            return BadRequest(new ApiResponse(400));
 
         }
 
