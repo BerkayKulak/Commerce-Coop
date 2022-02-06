@@ -38,9 +38,9 @@ namespace ECommerce.NET_Angular.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort)
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort,int? brandId,int? typeId)
         {
-            var spec = new ProductsWithProductTypeAndBrandsSpecification(sort);
+            var spec = new ProductsWithProductTypeAndBrandsSpecification(sort,brandId,typeId);
 
             var data = await _productRepository.ListAsync(spec);
 
