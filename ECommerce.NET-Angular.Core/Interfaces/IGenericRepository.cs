@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ECommerce.NET_Angular.Core.DbModels;
+using ECommerce.NET_Angular.Core.Specifications;
 
 namespace ECommerce.NET_Angular.Core.Interfaces
 {
@@ -10,6 +11,7 @@ namespace ECommerce.NET_Angular.Core.Interfaces
     {
         Task<T> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
-
+        Task<T> GetEntityWithSpec(ISpecification<T> spec);
+        Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
     }
 }
