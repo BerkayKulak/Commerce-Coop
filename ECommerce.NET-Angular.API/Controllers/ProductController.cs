@@ -34,5 +34,20 @@ namespace ECommerce.NET_Angular.API.Controllers
             return await _productRepository.GetProductByIdAsync(id);
 
         }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductsBrands()
+        {
+            return Ok(await _productRepository.GetProductBrandsAsync());
+
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductsTypes()
+        {
+            return Ok(await _productRepository.GetProductTypesAsync());
+
+        }
+
     }
 }
