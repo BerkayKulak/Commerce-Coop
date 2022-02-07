@@ -19,10 +19,12 @@ export class ShopService {
 
     if (shopParams.brandId !== 0) {
       params = params.append('brandId', shopParams.brandId.toString());
+      console.log(params);
     }
 
     if (shopParams.typeId !== 0) {
       params = params.append('typeId', shopParams.typeId.toString());
+      console.log(params);
     }
 
     if (shopParams.search) {
