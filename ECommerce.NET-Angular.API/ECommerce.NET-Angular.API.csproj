@@ -20,4 +20,16 @@
     <ProjectReference Include="..\ECommerce.NET-Angular.Infrastructure\ECommerce.NET-Angular.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\images\products\armut.jpg" />
+    <None Include="wwwroot\images\products\domates.jpg" />
+    <None Include="wwwroot\images\products\elma.jpg" />
+    <None Include="wwwroot\images\products\peynir.jpg" />
+    <None Include="wwwroot\images\products\zeytin.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\" />
+  </ItemGroup>
+
 </Project>
