@@ -14,4 +14,7 @@
   >
     400 Validation Error
   </button>
+  <div class="row mt-5" *ngIf="validationError">
+    <p>{{ validationError }}</p>
+  </div>
 </div>

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { TestErrorComponent } from './test-error/test-error.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -12,7 +13,11 @@ import { TestErrorComponent } from './test-error/test-error.component';
   declarations: [NavBarComponent, NotFoundComponent, ServerErrorComponent, TestErrorComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ToastrModule.forRoot({
+      positionClass:'toastr-bottom-right',
+      preventDuplicates:true,
+    })
   ],
   exports:[NavBarComponent]
 })
