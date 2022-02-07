@@ -10,7 +10,7 @@ namespace ECommerce.NET_Angular.API.Extensions
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddSingleton<IBasketRepository, BasketRepository>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
