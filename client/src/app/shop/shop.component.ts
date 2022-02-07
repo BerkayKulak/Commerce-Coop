@@ -47,7 +47,7 @@ export class ShopComponent implements OnInit {
   }
 
   getTypes() {
-    this.shopService.getBrands().subscribe(
+    this.shopService.getTypes().subscribe(
       (response) => {
         this.types = response;
       },
