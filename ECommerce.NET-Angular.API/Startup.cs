@@ -28,12 +28,13 @@ namespace ECommerce.NET_Angular.API
 
             services.AddControllers();
 
+
             services.AddDbContext<StoreContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddSingleton<ConnectionMultiplexer>(x =>
+            services.AddSingleton<IConnectionMultiplexer>(x =>
             {
                 var configuration = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"),true);
                 return ConnectionMultiplexer.Connect(configuration);
