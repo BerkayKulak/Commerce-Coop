@@ -7,7 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { catchError, Observable, throwError, throwIfEmpty } from 'rxjs';
+import { catchError, delay, Observable, throwError, throwIfEmpty } from 'rxjs';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -19,16 +19,15 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       //rxjs
+
       catchError((error) => {
         if (error) {
           if (error.status === 400) {
-            if(error.error.errors){
+            if (error.error.errors) {
               throw error.error;
-            }
-            else{
+            } else {
               this.toastr.error(error.error.message, error.error.statuscode);
             }
-            
           }
           if (error.status === 401) {
             this.toastr.error(error.error.message, error.error.statuscode);
