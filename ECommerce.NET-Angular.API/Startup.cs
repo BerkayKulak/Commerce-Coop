@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace ECommerce.NET_Angular.API
 {
@@ -30,6 +31,12 @@ namespace ECommerce.NET_Angular.API
             services.AddDbContext<StoreContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.AddSingleton<ConnectionMultiplexer>(x =>
+            {
+                var configuration = ConfigurationOptions.Parse(Configuration.GetConnectionString("Redis"),true);
+                return ConnectionMultiplexer.Connect(configuration);
             });
 
             services.AddApplicationService();
