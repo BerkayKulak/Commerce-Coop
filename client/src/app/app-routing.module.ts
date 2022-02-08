@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountModule } from './account/account.module';
 import { BasketComponent } from './basket/basket.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
@@ -36,6 +37,12 @@ const routes: Routes = [
     path: 'checkout',
     component: CheckoutComponent,
     data: { breadcrumb: 'Checkout' },
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+      import('./account/account.module').then((mod) => mod.AccountModule),
+    data: { breadcrumb: { skip: true } },
   },
   {
     path: 'shop/:id',
