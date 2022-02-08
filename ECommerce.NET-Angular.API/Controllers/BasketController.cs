@@ -3,6 +3,8 @@ using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using AutoMapper;
+using ECommerce.NET_Angular.API.Dtos;
 
 namespace ECommerce.NET_Angular.API.Controllers
 {
@@ -10,10 +12,12 @@ namespace ECommerce.NET_Angular.API.Controllers
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepository _basketRepository;
+        private readonly IMapper _mapper;
 
-        public BasketController(IBasketRepository basketRepository)
+        public BasketController(IBasketRepository basketRepository,IMapper mapper)
         {
             _basketRepository = basketRepository;
+            _mapper = mapper;
         }
 
 
@@ -27,7 +31,7 @@ namespace ECommerce.NET_Angular.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
+        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasketDto basket)
         {
             if (basket.Id == null || basket.Id == "undefined")
             {
@@ -35,7 +39,9 @@ namespace ECommerce.NET_Angular.API.Controllers
                 basket.Id = newGuidValue.ToString();
             }
 
-            var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
+            var customerBasket = _mapper.Map<CustomerBasketDto, CustomerBasket>(basket);
+
+            var updatedBasket = await _basketRepository.UpdateBasketAsync(customerBasket);
 
             return Ok(updatedBasket);
         }
