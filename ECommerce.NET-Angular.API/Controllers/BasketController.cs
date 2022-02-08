@@ -1,4 +1,5 @@
-﻿using ECommerce.NET_Angular.Core.DbModels;
+﻿using System;
+using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -28,6 +29,11 @@ namespace ECommerce.NET_Angular.API.Controllers
         [HttpPost]
         public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
         {
+            if (basket.Id == null)
+            {
+                basket.Id = new Guid().ToString();
+            }
+
             var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
 
             return Ok(updatedBasket);
