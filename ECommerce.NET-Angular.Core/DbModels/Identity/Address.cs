@@ -1,4 +1,4 @@
-﻿namespace ECommerce.NET_Angular.Core.DbModels
+﻿namespace ECommerce.NET_Angular.Core.DbModels.Identity
 {
     public class Address:BaseEntity
     {
