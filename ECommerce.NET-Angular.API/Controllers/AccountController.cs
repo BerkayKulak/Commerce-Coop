@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Validations;
 
 namespace ECommerce.NET_Angular.API.Controllers
 {
@@ -62,6 +63,11 @@ namespace ECommerce.NET_Angular.API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
+            if (CheckEmailExistAsync(registerDto.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidatorErrorResponse { Errors = new[] {"Email Address is in use"}});
+            }
+
             var user = new AppUser()
             {
                 DisplayName = registerDto.DisplayName,
