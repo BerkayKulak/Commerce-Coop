@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using ECommerce.NET_Angular.API.Dtos;
 using ECommerce.NET_Angular.API.Errors;
 using ECommerce.NET_Angular.API.Extensions;
@@ -22,11 +23,14 @@ namespace ECommerce.NET_Angular.API.Controllers
 
         private readonly ITokenService _tokenService;
 
-        public AccountController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,ITokenService tokenService)
+        private readonly IMapper _mapper;
+
+        public AccountController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,ITokenService tokenService, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [HttpPost("login")]
@@ -102,15 +106,31 @@ namespace ECommerce.NET_Angular.API.Controllers
 
         [Authorize]
         [HttpGet("address")]
-        public async Task<ActionResult<Address>> GetUserAddress()
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
 
             var user = await _userManager.FindByUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
 
-            return user.Address;
+            return _mapper.Map<Address,AddressDto>(user.Address);
 
         }
 
+        [Authorize]
+        [HttpPut("address")]
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
+        {
+            var user = await _userManager.FindByUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
 
+            user.Address = _mapper.Map<AddressDto, Address>(address);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok(_mapper.Map<Address, AddressDto>(user.Address));
+            }
+
+            return BadRequest("Update Error Occurred");
+        }
     }
 }
