@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ECommerce.NET_Angular.API.Dtos;
 using ECommerce.NET_Angular.API.Errors;
+using ECommerce.NET_Angular.API.Extensions;
 using ECommerce.NET_Angular.Core.DbModels.Identity;
 using ECommerce.NET_Angular.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -83,9 +84,7 @@ namespace ECommerce.NET_Angular.API.Controllers
         [HttpGet]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
 
             return new UserDto
             {
@@ -103,12 +102,10 @@ namespace ECommerce.NET_Angular.API.Controllers
 
         [Authorize]
         [HttpGet("address")]
-        public async Task<ActionResult<Address>> GetAddress()
+        public async Task<ActionResult<Address>> GetUserAddress()
         {
 
-            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
-
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
 
             return user.Address;
 
