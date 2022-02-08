@@ -18,8 +18,8 @@ namespace ECommerce.NET_Angular.Core.DbModels
         }
 
         public string Id { get; set; }
-        
-        public List<BasketItem> Type { get; set; } = new List<BasketItem>();
+
+        public List<BasketItem> Items { get; set; } = new List<BasketItem>();
 
     }
 
