@@ -2,6 +2,7 @@
 using ECommerce.NET_Angular.API.Dtos;
 using ECommerce.NET_Angular.API.Errors;
 using ECommerce.NET_Angular.Core.DbModels.Identity;
+using ECommerce.NET_Angular.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,16 @@ namespace ECommerce.NET_Angular.API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
+
         private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager)
+        private readonly ITokenService _tokenService;
+
+        public AccountController(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,ITokenService tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -40,7 +45,7 @@ namespace ECommerce.NET_Angular.API.Controllers
             return new UserDto
             {
                 Email = user.Email,
-                Token = "This will be token value",
+                Token = _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
 
@@ -66,7 +71,7 @@ namespace ECommerce.NET_Angular.API.Controllers
             return new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = "This will be Token Value",
+                Token = _tokenService.CreateToken(user),
                 Email = user.Email
             };
         }

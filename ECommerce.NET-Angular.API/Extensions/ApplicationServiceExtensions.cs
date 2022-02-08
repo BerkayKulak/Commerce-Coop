@@ -1,5 +1,6 @@
 ﻿using ECommerce.NET_Angular.Core.Interfaces;
 using ECommerce.NET_Angular.Infrastructure.Implements;
+using ECommerce.NET_Angular.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ECommerce.NET_Angular.API.Extensions
@@ -9,7 +10,10 @@ namespace ECommerce.NET_Angular.API.Extensions
         // startupun içerisindeki ConfigureServicesin içerisini azaltmak. 
         public static IServiceCollection AddApplicationService(this IServiceCollection services)
         {
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddScoped<IBasketRepository, BasketRepository>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
