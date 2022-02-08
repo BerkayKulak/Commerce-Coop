@@ -11,7 +11,7 @@ import { HomeModule } from './home/home.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
-
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
