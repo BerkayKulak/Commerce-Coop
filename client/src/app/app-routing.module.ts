@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountModule } from './account/account.module';
 import { BasketComponent } from './basket/basket.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AuthGuard } from './core/guards/auth.guard';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
 import { TestErrorComponent } from './core/test-error/test-error.component';
@@ -35,7 +36,9 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
-    component: CheckoutComponent,
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./checkout/checkout.module').then((mod) => mod.CheckoutModule),
     data: { breadcrumb: 'Checkout' },
   },
   {
