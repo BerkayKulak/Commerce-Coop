@@ -42,6 +42,8 @@ namespace ECommerce.NET_Angular.API
 
             services.AddApplicationService();
 
+            services.AddIdentityServices();
+
             services.AddSwaggerDocumentation();
 
             services.AddCors(opt =>
