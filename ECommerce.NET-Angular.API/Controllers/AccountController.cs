@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using ECommerce.NET_Angular.API.Dtos;
 using ECommerce.NET_Angular.API.Errors;
 using ECommerce.NET_Angular.Core.DbModels.Identity;
 using ECommerce.NET_Angular.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -75,5 +78,42 @@ namespace ECommerce.NET_Angular.API.Controllers
                 Email = user.Email
             };
         }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            return new UserDto
+            {
+                DisplayName = user.DisplayName,
+                Token = _tokenService.CreateToken(user),
+                Email = user.Email
+            };
+        }
+
+        [HttpGet("emailexists")]
+        public async Task<ActionResult<bool>> CheckEmailExistAsync([FromQuery] string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != null;
+        }
+
+        [Authorize]
+        [HttpGet("address")]
+        public async Task<ActionResult<Address>> GetAddress()
+        {
+
+            var email = HttpContext.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            var user = await _userManager.FindByEmailAsync(email);
+
+            return user.Address;
+
+        }
+
+
     }
 }

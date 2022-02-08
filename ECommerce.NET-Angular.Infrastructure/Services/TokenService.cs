@@ -14,11 +14,10 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace ECommerce.NET_Angular.Infrastructure.Services
 {
-    public class TokenService:ITokenService
+    public class TokenService : ITokenService
     {
         private readonly IConfiguration _config;
-
-        private readonly SymmetricSecurityKey _key; // şifreleme kütüphanesi
+        private readonly SymmetricSecurityKey _key;
 
         public TokenService(IConfiguration config)
         {
@@ -28,15 +27,14 @@ namespace ECommerce.NET_Angular.Infrastructure.Services
 
         public string CreateToken(AppUser user)
         {
-            var claim = new List<Claim>()
+            var claim = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.GivenName, user.DisplayName)
+                new Claim(JwtRegisteredClaimNames.Email,user.Email),
+                new Claim(JwtRegisteredClaimNames.GivenName,user.DisplayName)
             };
-
             var cred = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            var tokenDesciptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claim),
                 Expires = DateTime.Now.AddDays(7),
@@ -46,7 +44,7 @@ namespace ECommerce.NET_Angular.Infrastructure.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDesciptor);
 
             return tokenHandler.WriteToken(token);
         }
