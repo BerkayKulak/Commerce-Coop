@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 import {
-  Basket,
   IBasket,
   IBasketItem,
+  Basket,
   IBasketTotals,
 } from '../shared/models/basket';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { IProduct } from '../shared/models/IProduct';
 
 @Injectable({
@@ -16,11 +16,8 @@ import { IProduct } from '../shared/models/IProduct';
 })
 export class BasketService {
   baseUrl = environment.apiUrl;
-
   private basketSource = new BehaviorSubject<IBasket>(null);
-
   basket$ = this.basketSource.asObservable();
-
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null);
   basketTotal$ = this.basketTotalSource.asObservable();
 
@@ -30,7 +27,6 @@ export class BasketService {
     return this.http.get(this.baseUrl + 'basket?id=' + id).pipe(
       map((basket: IBasket) => {
         this.basketSource.next(basket);
-        console.log(this.getCurrentBasketValue());
         this.calculateTotals();
       })
     );
@@ -83,30 +79,31 @@ export class BasketService {
       this.removeItemFromBasket(item);
     }
   }
-
   removeItemFromBasket(item: IBasketItem) {
     const basket = this.getCurrentBasketValue();
-    if(basket.items.some(x=>x.id === item.id)){
-      basket.items = basket.items.filter(i=> i.id !== item.id);
-      if(basket.items.length>0){
+    if (basket.items.some((x) => x.id === item.id)) {
+      basket.items = basket.items.filter((i) => i.id !== item.id);
+      if (basket.items.length > 0) {
         this.setBasket(basket);
-      }else{
+      } else {
         this.deleteBasket(basket);
       }
     }
-    }
-  
-    deleteBasket(basket: IBasket) {
+  }
 
-      return this.http.delete(this.baseUrl+'basket?id='+basket.id).subscribe(()=>{
+  deleteBasket(basket: IBasket) {
+    return this.http.delete(this.baseUrl + 'basket?id=' + basket.id).subscribe(
+      () => {
         this.basketSource.next(null);
         this.basketTotalSource.next(null);
         localStorage.removeItem('basket_id');
-      },error=>{
+      },
+      (error) => {
         console.log(error);
-      });
-      
-    }
+      }
+    );
+  }
+
   private calculateTotals() {
     const basket = this.getCurrentBasketValue();
     const shipping = 0;

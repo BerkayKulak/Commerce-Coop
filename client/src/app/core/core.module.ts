@@ -9,19 +9,23 @@ import { ToastrModule } from 'ngx-toastr';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
-
-
 @NgModule({
-  declarations: [NavBarComponent, NotFoundComponent, ServerErrorComponent, TestErrorComponent, SectionHeaderComponent],
+  declarations: [
+    NavBarComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
+    TestErrorComponent,
+    SectionHeaderComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
     BreadcrumbModule,
     ToastrModule.forRoot({
-      positionClass:'toastr-bottom-right',
-      preventDuplicates:true,
-    })
+      positionClass: 'toastr-bottom-right',
+      preventDuplicates: true,
+    }),
   ],
-  exports:[NavBarComponent,SectionHeaderComponent]
+  exports: [NavBarComponent, SectionHeaderComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

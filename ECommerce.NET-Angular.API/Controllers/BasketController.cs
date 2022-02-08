@@ -29,7 +29,7 @@ namespace ECommerce.NET_Angular.API.Controllers
         [HttpPost]
         public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
         {
-            if (basket.Id == null)
+            if (basket.Id == null || basket.Id == "undefined")
             {
                 var newGuidValue = Guid.NewGuid();
                 basket.Id = newGuidValue.ToString();
