@@ -5,6 +5,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { OrderTotalsComponent } from './order-totals/order-totals.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent],
@@ -13,6 +14,7 @@ import { OrderTotalsComponent } from './order-totals/order-totals.component';
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     PaginationModule,
@@ -20,6 +22,7 @@ import { OrderTotalsComponent } from './order-totals/order-totals.component';
     PagerComponent,
     CarouselModule,
     OrderTotalsComponent,
+    ReactiveFormsModule
   ],
 })
 export class SharedModule {}
