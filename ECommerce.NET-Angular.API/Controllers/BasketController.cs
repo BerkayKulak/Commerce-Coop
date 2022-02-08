@@ -31,7 +31,8 @@ namespace ECommerce.NET_Angular.API.Controllers
         {
             if (basket.Id == null)
             {
-                basket.Id = new Guid().ToString();
+                var newGuidValue = Guid.NewGuid();
+                basket.Id = newGuidValue.ToString();
             }
 
             var updatedBasket = await _basketRepository.UpdateBasketAsync(basket);
