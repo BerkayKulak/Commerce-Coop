@@ -6,7 +6,6 @@ using ECommerce.NET_Angular.API.Errors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ECommerce.NET_Angular.API.Middleware
