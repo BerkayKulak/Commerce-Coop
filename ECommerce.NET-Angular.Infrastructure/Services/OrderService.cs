@@ -21,16 +21,15 @@ namespace ECommerce.NET_Angular.Infrastructure.Services
             _unitOfWork = unitOfWork;
         }
 
-
         public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, Address shippingAddress)
         {
-            var basket =await _basketRepo.GetBasketAsync(basketId);
+            var basket = await _basketRepo.GetBasketAsync(basketId);
 
             var items = new List<OrderItem>();
 
             foreach (var item in basket.Items)
             {
-                var productItem = await _productRepo.GetByIdAsync(item.Id);
+                var productItem = await _unitOfWork.Repository<Product>().GetByIdAsync(item.Id);
 
                 var itemOrdered = new ProductItemOrdered(productItem.Id, productItem.Name, productItem.PictureUrl);
 
@@ -39,17 +38,24 @@ namespace ECommerce.NET_Angular.Infrastructure.Services
                 items.Add(orderItem);
             }
 
-            var deliveryMethod = await _deliveryMethoRepo.GetByIdAsync(deliveryMethodId);
+            var deliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
 
             var subTotal = items.Sum(item => item.Price * item.Quantity);
 
             var order = new Order(buyerEmail, shippingAddress, deliveryMethod, items, subTotal);
 
             //TODO:save db;
+            _unitOfWork.Repository<Order>().Add(order);
+
+            var result = await _unitOfWork.Complete();
+
+            if (result <= 0) return null;
+
+            //delete basket
+
+            await _basketRepo.DeleteBasketAsync(basketId);
 
             return order;
-
-
         }
 
         public Task<IReadOnlyList<Order>> GetOrderForUserAsync(string buyerEmail)
