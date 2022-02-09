@@ -1,4 +1,5 @@
 ﻿using ECommerce.NET_Angular.Core.Interfaces;
+using ECommerce.NET_Angular.Infrastructure.Data;
 using ECommerce.NET_Angular.Infrastructure.Implements;
 using ECommerce.NET_Angular.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,8 @@ namespace ECommerce.NET_Angular.API.Extensions
             services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped<IOrderService, OrderService>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IProductRepository, ProductRepository>();
 
