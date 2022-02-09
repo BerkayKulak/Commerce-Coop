@@ -45,15 +45,15 @@ export class CheckoutPaymentComponent implements AfterViewInit {
     const elements = this.stripe.elements();
     this.cardNumber = elements.create('cardNumber');
     this.cardNumber.mount(this.cardNumberElement.nativeElement);
-    this.cardNumber.addEventListener('change',this.cardHandler);
+    this.cardNumber.addEventListener('change', this.cardHandler);
 
     this.cardExpiry = elements.create('cardExpiry');
     this.cardExpiry.mount(this.cardExpiryElement.nativeElement);
-    this.cardExpiry.addEventListener('change',this.cardHandler);
+    this.cardExpiry.addEventListener('change', this.cardHandler);
 
     this.cardCvc = elements.create('cardCvc');
     this.cardCvc.mount(this.cardCvcElement.nativeElement);
-    this.cardCvc.addEventListener('change',this.cardHandler);
+    this.cardCvc.addEventListener('change', this.cardHandler);
   }
 
   ngOnDestroy() {
@@ -62,11 +62,10 @@ export class CheckoutPaymentComponent implements AfterViewInit {
     this.cardCvc.destroy();
   }
 
-  onChange({error}){
-    if(error){
+  onChange({ error }) {
+    if (error) {
       this.cardErrors = error.message;
-    }
-    else{
+    } else {
       this.cardErrors = null;
     }
   }
@@ -76,8 +75,26 @@ export class CheckoutPaymentComponent implements AfterViewInit {
     const orderToCreate = this.getOrderToCreate(basket);
     this.checkoutService.createOrder(orderToCreate).subscribe(
       (order: IOrder) => {
-        this.toastr.success('Order Created Successfully');
-        this.basketService.deleteLocalBasket(basket.id);
+        this.stripe
+          .confirmCardPayment(basket.clientSecret, {
+            payment_method: {
+              card: this.cardNumber,
+              billing_details: {
+                name: this.checkoutForm.get('paymentForm').get('nameOnCard')
+                  .value,
+              },
+            },
+          })
+          .then((result) => {
+            if (result.paymentIntent) {
+              console.log(result);
+              this.basketService.deleteLocalBasket(basket.id);
+              this.toastr.success('Order Created Successfully');
+            } else {
+              this.toastr.error('Payment error');
+            }
+          });
+
         console.log(order);
       },
       (error) => {
