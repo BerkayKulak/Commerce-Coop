@@ -17,6 +17,7 @@ namespace ECommerce.NET_Angular.API.Helpers
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<CustomerBasketDto, CustomerBasket>();
             CreateMap<BasketItemDto, BasketItem>();
+            CreateMap<AddressDto, Core.DbModels.OrderAggregate.Address>().ReverseMap();
         }
     }
 }
