@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ECommerce.NET_Angular.Core.DbModels;
 using ECommerce.NET_Angular.Core.DbModels.OrderAggregate;
 using ECommerce.NET_Angular.Core.Interfaces;
+using ECommerce.NET_Angular.Core.Specifications;
 using ECommerce.NET_Angular.Infrastructure.Implements;
 
 namespace ECommerce.NET_Angular.Infrastructure.Services
@@ -58,19 +59,23 @@ namespace ECommerce.NET_Angular.Infrastructure.Services
             return order;
         }
 
-        public Task<IReadOnlyList<Order>> GetOrderForUserAsync(string buyerEmail)
+        public async Task<IReadOnlyList<Order>> GetOrderForUserAsync(string buyerEmail)
         {
-            throw new NotImplementedException();
+            var spec = new OrdersWithItemsAndOrderingSpecification(buyerEmail);
+
+            return await _unitOfWork.Repository<Order>().ListAsync(spec);
         }
 
-        public Task<Order> GetOrderByIdAsync(int id, string buyerEmail)
+        public async Task<Order> GetOrderByIdAsync(int id, string buyerEmail)
         {
-            throw new NotImplementedException();
+            var spec = new OrdersWithItemsAndOrderingSpecification(id, buyerEmail);
+
+            return await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
         }
 
-        public Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodAsync()
+        public async Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Repository<DeliveryMethod>().ListAllAsync();
         }
     }
 }
