@@ -12,6 +12,8 @@ namespace ECommerce.NET_Angular.API.Extensions
         {
             services.AddScoped<ITokenService, TokenService>();
 
+            services.AddScoped<IOrderService, OrderService>();
+
             services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddScoped<IBasketRepository, BasketRepository>();
