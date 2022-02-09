@@ -12,21 +12,16 @@ namespace ECommerce.NET_Angular.Infrastructure.Services
 {
     public class OrderService:IOrderService
     {
-        private readonly GenericRepository<Order> _orderRepo;
-        private readonly IGenericRepository<DeliveryMethod> _deliveryMethoRepo;
-        private readonly IGenericRepository<Product> _productRepo;
         private readonly IBasketRepository _basketRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public OrderService(GenericRepository<Order> orderRepo,
-            IGenericRepository<DeliveryMethod> deliveryMethoRepo,
-            IGenericRepository<Product> productRepo,
-            IBasketRepository basketRepo)
+        public OrderService(IBasketRepository basketRepo, IUnitOfWork unitOfWork)
         {
-            _orderRepo = orderRepo;
-            _deliveryMethoRepo = deliveryMethoRepo;
-            _productRepo = productRepo;
             _basketRepo = basketRepo;
+            _unitOfWork = unitOfWork;
         }
+
+
         public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, Address shippingAddress)
         {
             var basket =await _basketRepo.GetBasketAsync(basketId);
