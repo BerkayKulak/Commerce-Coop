@@ -1,5 +1,5 @@
 <div class="mt-4" [formGroup]="checkoutForm">
-  <div class="row" formGroupName="deliveryMethods">
+  <div class="row" formGroupName="deliveryForm">
     <div class="col-6 form-group" *ngFor="let method of deliveryMethods">
       <input
         type="radio"
@@ -10,12 +10,11 @@
       />
       <label for="{{ method.id }}" class="custom-control-label"></label>
       <strong>{{ method.shortName }} - {{ method.price | currency }}</strong>
-      <br>
-      <span class="label-description">{{method.description}}</span>
+      <br />
+      <span class="label-description">{{ method.description }}</span>
     </div>
   </div>
 </div>
-
 
 <div
   class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5"
