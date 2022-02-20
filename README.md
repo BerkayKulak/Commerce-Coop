@@ -160,6 +160,7 @@ This is an example of how to list things you need to use the software and how to
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
+To clone and run this application, The .NET command-line interface (CLI) is a cross-platform toolchain for developing, building, running, and publishing .NET applications.
 
 1. Clone the repo
    ```sh
