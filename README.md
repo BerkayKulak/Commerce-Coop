@@ -32,7 +32,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img width="100%" src="https://user-images.githubusercontent.com/61355143/154837016-a7c60eb8-2faa-4de9-984e-f66ec14f5ce7.png">
+<img width="100%" src="https://user-images.githubusercontent.com/61355143/154852071-e2d8ce7c-b318-41a1-b832-1d118e27d846.gif">
 <img width="100%" src="https://user-images.githubusercontent.com/61355143/154835967-c598eb19-5189-4a7e-92bd-2052383d9ae9.gif">
 <img width="100%" src="https://user-images.githubusercontent.com/61355143/154835677-d3a1204c-4a72-46f6-b2a2-ef383a9cc7de.gif">
 
