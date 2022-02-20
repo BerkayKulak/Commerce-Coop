@@ -144,7 +144,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Clone the repo
    ```sh
-   https://github.com/BerkayKulak/Blazor-Villagenix.git
+   https://github.com/BerkayKulak/Commerce-Coop.git
    ```
 2. Update Nuget packages
    ```sh
@@ -166,29 +166,23 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
 ```bash
 # Go into the repository API
-$ cd \Villagenix\Villagenix.API
+$ cd \ECommerce.NET-Angular\ECommerce.NET-Angular.API
 
 # Run the app
 $ dotnet run
 $ dotnet run --project ./projects/proj1/proj1.csproj
+```
 
-# Go into the repository Server
-$ cd \Villagenix\Villagenix.Server
+## Stripe Integration
 
-# Run the app
-$ dotnet run
-$ dotnet run --project ./projects/proj1/proj1.csproj
 
-# Go into the repository Client
-$ cd \Villagenix\Villagenix.Client
-
-# Run the app
-$ dotnet run
-$ dotnet run --project ./projects/proj1/proj1.csproj
+```bash
+ "StripeSettings": {
+    "PublishableKey": "[PUBLISH_KEY]",
+    "SecretKey": "[SECRET_KEY]"
+  },
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
