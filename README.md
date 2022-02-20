@@ -135,7 +135,25 @@ This is an example of how to list things you need to use the software and how to
   <PackageReference Include="Stripe.net" Version="39.90.0" />
   <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.15.1" />
   ```
+## Database Configuration (appsettings.json)
 
+
+```bash
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=[YOUR_LOCAL_DB];Initial Catalog=[YOUR_DB_NAME];Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+    "Redis": "localhost"
+  },
+```
+
+## Stripe Integration
+
+
+```bash
+ "StripeSettings": {
+    "PublishableKey": "[PUBLISH_KEY]",
+    "SecretKey": "[SECRET_KEY]"
+  },
+```
 
 ### Installation
 
@@ -175,15 +193,6 @@ $ dotnet run
 $ dotnet run --project ./projects/proj1/proj1.csproj
 ```
 
-## Stripe Integration
-
-
-```bash
- "StripeSettings": {
-    "PublishableKey": "[PUBLISH_KEY]",
-    "SecretKey": "[SECRET_KEY]"
-  },
-```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
